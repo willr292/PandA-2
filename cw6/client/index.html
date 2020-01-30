@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scotland Yard</title>
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/png" href="resources/icon.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="GUIConnector.js"></script>
+    <script type="text/javascript" src="resources/pos.js"></script>
+    <script type="text/javascript" src="PlayerView.js"></script>
+    <script type="text/javascript" src="TimerView.js"></script>
+    <script type="text/javascript" src="TicketView.js"></script>
+    <script type="text/javascript" src="NotifyView.js"></script>
+    <script type="text/javascript" src="BoardView.js"></script>
+    <script type="text/javascript" src="DropDown.js"></script>
+    <script type="text/javascript" src="ImageLoader.js"></script>
+    <script type="text/javascript" src="SetUpView.js"></script>
+    <script type="text/javascript" src="Messenger.js"></script>
+    <script type="text/javascript" src="GameMessenger.js"></script>
+    <script type="text/javascript" src="AIMessenger.js"></script>
+    <script type="text/javascript" src="ListView.js"></script>
+    <script type="text/javascript" src="Animator.js"></script>
+    <script type="text/javascript" src="Misc.js"></script>
+    <script type="text/javascript" src="Main.js"></script>
+  </head>
+  <body>
+    <div id="setUpView">
+      <h1>Scotland Yard</h1>
+      <div id="setUpMain">
+        <div id="setUpGame">
+          <form id="joinForm">
+            <label>Team Name:</label><br/>
+            <input class="teamField" name="teamField" type="text"></input>
+            <button id="joinButton" type="submit">Join</button><br/><br/>
+          </form>
+          <form id="matchmakerForm">
+            <label class="subheader">Matchmaker connection:</label><br/>
+            <label class="settingsLabel">Host</label>
+            <input class="connectionField" name="hostField" type="text"></input>
+            <label class="settingsLabel">Port</label>
+            <input class="connectionField" name="portField" type="text"></input>
+            <button id="matchmakerButton" type="submit">Connect</button><br/><br/>
+          </form>
+          <form id="aiForm">
+            <label class="subheader">AI connection:</label><br/>
+            <label class="settingsLabel">Host</label>
+            <input class="connectionField" name="hostField" type="text"></input>
+            <label class="settingsLabel">Port</label>
+            <input class="connectionField" name="portField" type="text"></input>
+            <label class="subheader">AI Players:</label><br/>
+            <div id="checkboxColumn">
+              <input class="checkbox" type="checkbox" name="Black_Checkbox" value="Black"></input>
+              <label class="settingsLabel">Black</label><br/>
+              <input class="checkbox" type="checkbox" name="Blue_Checkbox" value="Blue"></input>
+              <label class="settingsLabel">Blue</label><br/>
+              <input class="checkbox" type="checkbox" name="Green_Checkbox" value="Green"></input>
+              <label class="settingsLabel">Green</label><br/>
+            </div>
+            <div id="checkboxColumn">
+              <input class="checkbox" type="checkbox" name="Red_Checkbox" value="Red"></input>
+              <label class="settingsLabel">Red</label><br/>
+              <input class="checkbox" type="checkbox" name="Yellow_Checkbox" value="Yellow"></input>
+              <label class="settingsLabel">Yellow</label><br/>
+              <input class="checkbox" type="checkbox" name="White_Checkbox" value="White"></input>
+              <label class="settingsLabel">White</label><br/>
+            </div>
+          </form>
+        </div>
+        <div id="setUpSpectate">
+          <form id="spectateForm">
+            <label>Current Games:</label>
+            <ul id="list"></ul>
+            <button id="spectateButton" type="submit">Spectate</button>
+          </form>
+        </div>
+      </div>
+      <div id="setUpWaiting">
+          <h2 class="subheader">Waiting for a match!</h2>
+      </div>
+      <div id="setUpId">
+        <form id="idForm">
+          <label class="subheader">Your game id is:</label><br/>
+          <label class="largeId" id="idLabel">0</label><br/>
+          <button id="beginButton" type="submit">Begin</button><br/>
+        </form>
+      </div>
+    </div>
+    <div id="gameView">
+      <div id="notify">
+        <h1 id="notify_h1"></h1>
+      </div>
+      <div id="board">
+        <canvas id="dropDown"></canvas>
+        <canvas id="overlay" class="flex"></canvas>
+        <canvas id="background" class="flex"></canvas>
+      </div>
+      <canvas id="timer" class="flex"></canvas>
+      <div id="players">
+        <canvas id="tickets" class="inline-flex"></canvas>
+        <canvas id="blackPlayer" class="fixed small"></canvas>
+        <canvas id="bluePlayer" class="fixed"></canvas>
+        <canvas id="greenPlayer" class="fixed"></canvas>
+        <canvas id="redPlayer" class="fixed"></canvas>
+        <canvas id="whitePlayer" class="fixed"></canvas>
+        <canvas id="yellowPlayer" class="fixed"></canvas>
+      </div>
+    </div>
+  </body>
+</html>

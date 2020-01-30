@@ -1,0 +1,77 @@
+<project name="prijkstras" basedir=".">
+
+  <property name="bin.dir" value="bin"/>
+  <property name="classes.dir" value="${bin.dir}/classes"/>
+  <property name="jar.dir" value="${bin.dir}/jar"/>
+  <property name="doc.dir" value="doc"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="resources.dir" value="resources"/>
+  <property name="src.dir" value="src"/>
+  <property name="tests.dir" value="tests"/>
+  <property name="test_classes.dir" value="${bin.dir}/tests"/>
+
+  <target name="clean">
+    <delete dir="${bin.dir}"/>
+  </target>
+
+  <target name="make-folders" depends="clean">
+    <mkdir dir="${bin.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+  </target>
+
+  <target name="compile" depends="make-folders">
+    <javac debug="true" includeantruntime="false" destdir="${classes.dir}">
+      <src path="${src.dir}"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+      <fileset dir="${resources.dir}"/>
+      <zipgroupfileset dir="${lib.dir}" includes="**/*.jar"/>
+    </jar>
+  </target>
+
+  <path id="tests_classpath">
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    <fileset dir="${jar.dir}" includes="**/*.jar"/>
+  </path>
+
+  <target name="compile-tests" depends="jar">
+    <mkdir dir="${test_classes.dir}"/>
+    <javac debug="true" srcdir="${tests.dir}" includeantruntime="false" destdir="${test_classes.dir}" classpathref="tests_classpath"/>
+  </target>
+
+  <path id="classpath.test">
+    <fileset dir="." includes="**/*junit.jar" />
+  </path>
+
+  <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+    <classpath refid="classpath.test"/>
+  </taskdef>
+
+  <target name="test" depends="compile-tests">
+    <copy todir="${test_classes.dir}">
+      <fileset dir="${resources.dir}"/>
+    </copy>
+    <junit printsummary="yes" haltonfailure="no">
+      <classpath>
+        <pathelement location="${test_classes.dir}"/>
+        <path refid="tests_classpath"/>
+      </classpath>
+      <formatter type="brief" usefile="false"/>
+      <batchtest fork="no" todir="${tests.dir}">
+        <fileset dir="${tests.dir}">
+          <include name="**/*Tests.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="doc">
+    <mkdir dir="${doc.dir}"/>
+    <javadoc packagenames="graph" sourcepath="${src.dir}" sourcefiles="src/TestGraphReader.java" destdir="${doc.dir}"/>
+  </target>
+
+
+</project>

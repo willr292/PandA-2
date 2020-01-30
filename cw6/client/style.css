@@ -1,0 +1,238 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#setUpView {
+  width: 100%;
+  min-width: 800px;
+  height: 100%;
+  min-height: 500px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 3;
+}
+
+#setUpView h1 {
+  font-size: 4em;
+  font-size: 7.5vw;
+  color: white;
+  text-align: center;
+  width: 100%;
+  font-family: monospace;
+  margin: 2% 0;
+}
+
+#setUpMain, #setUpWaiting, #setUpId {
+  width: 800px;
+  height: 400px;
+  background-color: white;
+  border: 0px solid;
+  border-radius: 3px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#setUpSpectate, #setUpGame {
+  width: 40%;
+  float: left;
+  margin: 5%;
+}
+
+#setUpWaiting {
+  display:none;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 400px;
+}
+
+#setUpId {
+  display: none;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 120px;
+}
+
+#setUpView form input.teamField {
+  width: 72%;
+}
+
+#setUpView form input.connectionField {
+  width: 20%;
+  height: 14px;
+  margin: 0 5% 0 0;
+}
+
+#setUpView form input.checkbox {
+  display: inline-block;
+  width: 12px;
+}
+
+#setUpView form button {
+  background: #333333;
+  width: 65px;
+  height: 20px;
+  border: 0px solid;
+  border-radius: 2px;
+  color: white;
+  position: relative;
+  float: right;
+}
+
+#setUpId form button {
+  background: #000000;
+  float: none;
+}
+
+#setUpView form ul {
+  width: 100%;
+  height: 240px;
+  padding: 0;
+  border: 1px solid #A2A2A2;
+  overflow-y: scroll;
+}
+
+#setUpView form ul li {
+  list-style-type: none;
+  font-family: monospace;
+  padding: 2px;
+}
+
+#setUpView form ul li:hover {
+  background-color: #C7C7C7;
+}
+
+#setUpView form ul li.selected {
+  background-color: #4692FF;
+}
+
+#setUpView ul {
+  width: 100%;
+  height: 100%;
+}
+
+#setUpView form label {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 20pt;
+  position: relative;
+}
+
+#checkboxColumn {
+  width: 50%;
+  float: left;
+}
+
+#gameView {
+  width: 100%;
+  min-width: 800px;
+  height: 100%;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+#notify {
+  width: 80%;
+  max-width: 400px;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: 0px auto;
+  border: 0px solid;
+  border-radius: 5px;
+  box-shadow: 0px 0px 30px 0px #000000;
+  background-color: white;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+#notify_h1 {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: lighter;
+  font-family: sans-serif;
+}
+
+#dropDown {
+  position: absolute;
+  z-index: -1;
+}
+
+#board {
+  width: 100%;
+  height: calc(100% - 84px);
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#timer {
+  height: 4px !important;
+  bottom: 80px;
+  background-color: white;
+}
+
+#players {
+  height: 80px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+.flex {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.inline-flex {
+  width: 100%;
+  height: 80px;
+  min-width: 254px;
+}
+
+.fixed {
+  flex: 0 0 auto;
+  width: 96px;
+  height: 80px;
+}
+
+.small {
+  width: 66px;
+}
+
+.subheader {
+  display: block;
+  padding: 5px 0;
+  width: 100%;
+  font-size: 14pt !important;
+  font-family: monospace;
+}
+
+.settingsLabel {
+  font-size: 10pt !important;
+}
+
+.largeId {
+  font-size: 100pt !important;
+}
+
+#overlay {
+  z-index: 1;
+}
+
+#background {
+  z-index: 0;
+}

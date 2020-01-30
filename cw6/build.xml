@@ -1,0 +1,105 @@
+<project name="scotlandyard" basedir=".">
+
+  <property name="bin.dir" value="bin"/>
+  <property name="classes.dir" value="${bin.dir}/classes"/>
+  <property name="jar.dir" value="${bin.dir}/jar"/>
+
+  <property name="lib.dir" value="lib"/>
+  <property name="resources.dir" value="resources"/>
+  <property name="src.dir" value="src"/>
+
+  <target name="clean">
+    <delete dir="${bin.dir}"/>
+  </target>
+
+  <target name="make_folders">
+    <mkdir dir="${bin.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${jar.dir}"/>
+  </target>
+
+  <target name="compile" depends="make_folders">
+    <javac debug="true" includeantruntime="false" destdir="${classes.dir}">
+      <compilerarg value="-Xlint:unchecked"/>
+      <classpath>
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+      </classpath>
+      <src path="${src.dir}"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+      <zipgroupfileset dir="${lib.dir}" includes="**/*.jar"/>
+    </jar>
+  </target>
+
+  <target name="ai" depends="jar">
+    <java fork="true" classname="AIService">
+      <arg line="8121"/>
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <path location="${jar.dir}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="ai-with" depends="jar">
+    <java fork="true" classname="AIService">
+      <arg line="${args}"/>
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <path location="${jar.dir}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="matchmaker" depends="jar">
+    <java fork="true" classname="SimpleMatchmakerService">
+      <arg line="8122 8123"/>
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <path location="${jar.dir}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="matchmaker-with" depends="jar">
+    <java fork="true" classname="SimpleMatchmakerService">
+      <arg line="${args}"/>
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <path location="${jar.dir}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="judge" depends="jar">
+    <java fork="true" classname="JudgeService">
+      <arg line="8124 localhost 8122"/>
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <path location="${jar.dir}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="judge-with" depends="jar">
+    <java fork="true" classname="JudgeService">
+      <arg line="${args}"/>
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <path location="${jar.dir}/${ant.project.name}.jar"/>
+      </classpath>
+    </java>
+  </target>
+
+  <path id="classpath.test">
+    <fileset dir="." includes="**/*junit.jar" />
+  </path>
+
+  <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+    <classpath refid="classpath.test"/>
+  </taskdef>
+
+</project>

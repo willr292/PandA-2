@@ -1,0 +1,79 @@
+<project name="Draughts" basedir="." default="run">
+
+  <property name="bin.dir" value="bin"/>
+  <property name="classes.dir" value="${bin.dir}/classes"/>
+  <property name="jar.dir" value="${bin.dir}/jar"/>
+  <property name="doc.dir" value="doc"/>
+  <property name="res.dir" value="res"/>
+  <property name="src.dir" value="src"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="test.dir" value="tests"/>
+  <property name="test_classes.dir" value="${bin.dir}/tests"/>
+
+  <target name="clean">
+    <delete dir="${bin.dir}"/>
+  </target>
+
+  <target name="make_folders" depends="clean">
+    <mkdir dir="${bin.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${jar.dir}"/>
+    <mkdir dir="${doc.dir}"/>
+  </target>
+
+  <target name="compile" depends="make_folders">
+    <javac debug="true" includeantruntime="false" destdir="${classes.dir}">
+      <src path="${src.dir}"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}" manifest="Manifest.txt">
+      <fileset dir="${res.dir}"/>
+    </jar>
+  </target>
+
+  <target name="run" depends="jar">
+    <java fork="true" jar="${jar.dir}/${ant.project.name}.jar"/>
+  </target>
+
+  <target name="doc">
+    <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"/>
+  </target>
+
+  <target name="compile_tests" depends="jar">
+    <mkdir dir="${test_classes.dir}"/>
+    <javac debug="true" srcdir="${test.dir}" includeantruntime="false" destdir="${test_classes.dir}">
+      <classpath>
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        <fileset dir="${jar.dir}" includes="**/*.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+
+  <path id="classpath.test">
+    <fileset dir="." includes="**/*junit.jar" />
+  </path>
+
+  <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+    <classpath refid="classpath.test"/>
+  </taskdef>
+
+  <target name="test" depends="compile_tests">
+    <junit printsummary="yes" haltonfailure="no">
+      <classpath>
+        <pathelement location="${test_classes.dir}"/>
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        <fileset dir="${jar.dir}" includes="**/*.jar"/>
+      </classpath>
+      <formatter type="brief" usefile="false"/>
+      <batchtest fork="no" todir="${test.dir}">
+        <fileset dir="${test.dir}">
+          <include name="**/*Tests.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+</project>
